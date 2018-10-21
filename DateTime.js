@@ -384,10 +384,14 @@ var Datetime = createClass({
 	},
 
 	handleClickOutside: function() {
-		if ( this.props.input && this.state.open && this.props.open === undefined && !this.props.disableCloseOnClickOutside ) {
-			this.setState({ open: false }, function() {
+		if ( this.props.input && this.state.open ) {
+			if ( !this.props.open && !this.props.disableCloseOnClickOutside ) {
+				this.setState({ open: false }, function () {
+					this.props.onBlur( this.state.selectedDate || this.state.inputValue );
+				});
+			} else {
 				this.props.onBlur( this.state.selectedDate || this.state.inputValue );
-			});
+			}
 		}
 	},
 
